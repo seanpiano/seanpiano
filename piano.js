@@ -68,6 +68,7 @@ function stopTimer() {
 	timedMode = false;
 	HTMLTimer.classList.remove("timer-mode");
 	HTMLTimer.innerHTML = "Timed Mode";
+    alert("Timer stopped!");
 }
 
 function updateScore(command) {
