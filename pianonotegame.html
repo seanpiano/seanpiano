@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano Note Game | Seanteaching.com</title>
+    <link href="style.css" type="text/css" rel="stylesheet">
+    <link href="piano.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div class="page">
+        <h1>Piano Note Game</h1>
+        <div class="info">
+            <div class="score-box invis">
+                <div>Score:</div>
+                <div class="score">0</div>
+            </div>
+            <div class="letter-container">
+                <div>Next:</div>
+                <div class="letter">C</div>
+            </div>
+            <div class="timer clickable">
+                <div class="fas fa-clock"></div>
+                <div class="timer-text">Timed Mode</div>
+            </div>
+        </div>
+        <div class="piano">
+            <div class="whitekeys">
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+            </div>
+            <div class="blackkeys">
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+                <div class="keys"></div>
+            </div>
+        </div>
+        <div class="help-controls">
+            <div class="hint invis">Need a hint?</div>
+            <div class="keyset-select">
+                <div class="keyset clickable selected" data-noteset="0">CDE <i class="fas fa-check invis"></i></div>
+                <div class="keyset clickable" data-noteset="1">FGAB <i class="fas fa-check invis"></i></div>
+            </div>
+        </div>
+    </div>
+    <script src="piano.js"></script>
+    <script src="https://kit.fontawesome.com/adec4e7a3e.js" crossorigin="anonymous"></script>
+</body>
+</html>

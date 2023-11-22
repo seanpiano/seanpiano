@@ -32,7 +32,10 @@ a:hover {
     color: #5b5b5b;
     background-color: RGBa(0,0,0,0.1);  
 }
-@media (max-width: 600px) {
+@media (max-width: 740px) {
+    body {
+        padding-top: 3em;
+    }
     :root {
         font-size: 13px;
     }
