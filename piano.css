@@ -92,7 +92,7 @@
     transition: 0.1s linear;
   }
   .whitekeys .keys:hover {
-    background: #fff;
+    background: #b4e0f7;
   }
   .whitekeys .keys:active {
     box-shadow: inset 0px 1px 2px RGBa(0, 0, 0, 0.3);
