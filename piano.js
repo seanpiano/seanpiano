@@ -1,3 +1,7 @@
+/*
+Todo
+Add color changing background
+*/
 const keys = "cdefgabcdefgabc";
 let currentKey = "c";
 let hackCount = 0;
@@ -14,6 +18,38 @@ const notePicker = {
 			}
 		});
 		this.enabled = this.enabled ? this.enabled : "cde";
+	},
+	loadSettings: function () {
+		if (localStorage.getItem("data-selected")) {
+			try {
+				const dataSelected = JSON.parse(localStorage.getItem("data-selected"));
+				if (dataSelected.length === this.selected.length) {
+					dataSelected.forEach((d,i)=>{
+						this.selected[i] = Boolean(d);
+					});
+				}
+				this.updateEnabled();
+				document.querySelectorAll(".keyset").forEach((set,i)=>{
+					if (this.selected[i]) {
+						set.classList.add("selected");
+					} else {
+						set.classList.remove("selected");
+					}
+				});
+				generateNewKey();
+			} catch (e) {
+				console.log(e);
+				return;
+			}
+		}
+	},
+	toggleSelected: function(target) {
+		target.classList.toggle("selected");
+		const index = target.getAttribute("data-noteset");
+		this.selected[index] = !notePicker.selected[index];
+		this.updateEnabled();
+		localStorage.setItem("data-selected", JSON.stringify(this.selected));
+		console.log(localStorage.getItem("data-selected"));
 	}
 };
 
@@ -28,11 +64,6 @@ const HTMLWhiteKeys = document.querySelectorAll(".whitekeys .keys");
 const HTMLLetter = document.querySelector(".letter");
 const HTMLPianoContainer = document.querySelector(".piano");
 const HTMLTimer = document.querySelector(".timer-text");
-
-HTMLWhiteKeys.forEach((key, i) => {
-	key.setAttribute("data-key", keys[i]);
-	key.innerHTML = `<div class="note">${keys[i].toUpperCase()}</div>`;
-});
 
 function generateNewKey() {
 	let randomIndex = Math.floor(Math.random() * notePicker.enabled.length);
@@ -89,7 +120,6 @@ function updateScore(command) {
 function resetNotes() {
 	HTMLWhiteKeys.forEach((key) => {
 		key.classList.remove("correct");
-		console.log(key);
 		key.querySelector(".note").classList.remove("visible");
 	});
 }
@@ -124,11 +154,6 @@ function findClosestCorrectNote(incorrectEl, correctNote) {
 	}
 }
 
-HTMLWhiteKeys.forEach((key, i) => {
-	key.setAttribute("data-key", keys[i]);
-	key.innerHTML = `<div class="note invis">${keys[i].toUpperCase()}</div>`;
-});
-
 document.addEventListener("click", (e) => {
 	const t = e.target;
 	if (t.getAttribute("data-disabled")) {
@@ -159,13 +184,9 @@ document.addEventListener("click", (e) => {
 	} else if (t.classList.contains("timer")) {
 		startTimer(60);
 	} else if (t.classList.contains("keyset")) {
-		t.classList.toggle("selected");
-		notePicker.selected[t.getAttribute("data-noteset")] = !notePicker.selected[
-			t.getAttribute("data-noteset")
-		];
-		notePicker.updateEnabled();
+		notePicker.toggleSelected(t);
 	} else {
-		console.log(t);
+		console.info(t);
 	}
 });
 
@@ -173,5 +194,15 @@ function updatePianoHeight() {
 	HTMLPianoContainer.style.height = HTMLPianoContainer.offsetWidth / 3.33 + "px";
 }
 
-updatePianoHeight();
+function onPageLoad() {
+	HTMLWhiteKeys.forEach((key, i) => {
+		key.setAttribute("data-key", keys[i]);
+		key.innerHTML = `<div class="note invis">${keys[i].toUpperCase()}</div>`;
+	});
+	notePicker.loadSettings();
+	updatePianoHeight();
+}
+
+onPageLoad();
+
 window.addEventListener("resize", updatePianoHeight);

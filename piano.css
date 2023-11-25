@@ -160,6 +160,9 @@
     padding: 5px;
     color: #999;
   }
+  .keyset i {
+    pointer-events: none;
+  }
   .keyset-select div.selected i {
     opacity: 1;
   }
