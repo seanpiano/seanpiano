@@ -1,6 +1,6 @@
-console.clear();
 const keys = "cdefgabcdefgabc";
 let currentKey = "c";
+let hackCount = 0;
 
 const notePicker = {
 	enabled: "cde",
@@ -55,6 +55,8 @@ function startTimer(timeLeft) {
 	resetNotes();
 	HTMLTimer.innerHTML = timeLeft + "s";
 	HTMLTimer.classList.add("timer-mode");
+	HTMLTimer.parentElement.setAttribute("data-disabled",true);
+	HTMLTimer.parentElement.classList.add("selected");
 	timerInterval = setInterval(() => {
 		HTMLTimer.innerHTML = --timeLeft + "s";
 		if (timeLeft === -1) {
@@ -68,6 +70,8 @@ function stopTimer() {
 	timedMode = false;
 	HTMLTimer.classList.remove("timer-mode");
 	HTMLTimer.innerHTML = "Timed Mode";
+	HTMLTimer.parentElement.setAttribute("data-disabled",false);
+	HTMLTimer.parentElement.classList.remove("selected");
     alert("Timer stopped!");
 }
 
@@ -127,6 +131,16 @@ HTMLWhiteKeys.forEach((key, i) => {
 
 document.addEventListener("click", (e) => {
 	const t = e.target;
+	if (t.getAttribute("data-disabled")) {
+		if (t.getAttribute("data-disabled") === "true") {
+			hackCount++;
+			if (hackCount > 5) {
+				hackCount = 0;
+				alert("I fixed the bug xd");
+			}
+			return;
+		}
+	}
 	if (t.getAttribute("data-key")) {
 		resetNotes();
 		if (t.getAttribute("data-key") === currentKey) {
