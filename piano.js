@@ -1,7 +1,3 @@
-/*
-Todo
-Add color changing background
-*/
 const keys = "cdefgabcdefgabc";
 let currentKey = "c";
 let hackCount = 0;
@@ -59,6 +55,7 @@ const INCREMENT = 1;
 let timedMode;
 let timerInterval;
 let score = 0;
+let hue = 50;
 
 const HTMLWhiteKeys = document.querySelectorAll(".whitekeys .keys");
 const HTMLLetter = document.querySelector(".letter");
@@ -84,6 +81,9 @@ function startTimer(timeLeft) {
 	timedMode = true;
 	updateScore(RESET);
 	resetNotes();
+
+	document.body.classList.add('timed-mode');
+
 	HTMLTimer.innerHTML = timeLeft + "s";
 	HTMLTimer.classList.add("timer-mode");
 	HTMLTimer.parentElement.setAttribute("data-disabled",true);
@@ -97,6 +97,8 @@ function startTimer(timeLeft) {
 }
 
 function stopTimer() {
+	document.body.classList.remove('timed-mode');
+	updateHue(RESET);
 	window.clearInterval(timerInterval);
 	timedMode = false;
 	HTMLTimer.classList.remove("timer-mode");
@@ -114,7 +116,24 @@ function updateScore(command) {
 	} else if (command === INCREMENT) {
 		score++;
 	}
+	if (score % 10 === 0) {
+		updateHue(INCREMENT);
+	}
+	if (score === 60) {
+		document.body.style.setProperty('--light', '50%');
+	}
 	HTMLScore.innerHTML = score;
+}
+
+function updateHue(command) {
+	if (command === RESET) {
+		document.body.style.setProperty('--hue', 200);
+		document.body.style.setProperty('--light', '70%');
+		hue = 50;
+	} else if (command === INCREMENT) {
+		hue += 50;
+		document.body.style.setProperty('--hue', hue);
+	}
 }
 
 function resetNotes() {

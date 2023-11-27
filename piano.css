@@ -1,3 +1,18 @@
+:root {
+  --hue: 200;
+}  
+.timed-mode {
+    background: hsl(var(--hue) var(--light) var(--light) / 1);
+    transition: 0.5s linear;
+    --hue: 50;
+    --light: 70%;
+  }
+  
+.page {
+  border: 1px solid hsl(var(--hue) 100% 65% / 1);
+  transition: 0.5s linear;
+}
+
   .invis {
     transition: 0.2s ease;
     opacity: 0;
@@ -92,7 +107,7 @@
     transition: 0.1s linear;
   }
   .whitekeys .keys:hover {
-    background: #b4e0f7;
+    background: hsl(var(--hue), 81%, 84%);
   }
   .whitekeys .keys:active {
     box-shadow: inset 0px 1px 2px RGBa(0, 0, 0, 0.3);
