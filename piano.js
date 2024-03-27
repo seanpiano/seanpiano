@@ -81,15 +81,15 @@ function startTimer(timeLeft) {
 	timedMode = true;
 	updateScore(RESET);
 	resetNotes();
-
 	document.body.classList.add('timed-mode');
-
-	HTMLTimer.innerHTML = timeLeft + "s";
+	document.querySelector(".score").innerHTML = "??";
+	HTMLTimer.innerHTML = "On";
 	HTMLTimer.classList.add("timer-mode");
 	HTMLTimer.parentElement.setAttribute("data-disabled",true);
 	HTMLTimer.parentElement.classList.add("selected");
 	timerInterval = setInterval(() => {
-		HTMLTimer.innerHTML = --timeLeft + "s";
+		//HTMLTimer.innerHTML = --timeLeft + "s";
+		--timeLeft;
 		if (timeLeft === -1) {
 			stopTimer();
 		}
@@ -105,6 +105,7 @@ function stopTimer() {
 	HTMLTimer.innerHTML = "Timed Mode";
 	HTMLTimer.parentElement.setAttribute("data-disabled",false);
 	HTMLTimer.parentElement.classList.remove("selected");
+	document.querySelector(".score").innerHTML = score;
     alert("Timer stopped!");
 }
 
@@ -117,12 +118,12 @@ function updateScore(command) {
 		score++;
 	}
 	if (score % 10 === 0) {
-		updateHue(INCREMENT);
+		//updateHue(INCREMENT);
 	}
 	if (score === 60) {
 		document.body.style.setProperty('--light', '50%');
 	}
-	HTMLScore.innerHTML = score;
+	// HTMLScore.innerHTML = score;
 }
 
 function updateHue(command) {
